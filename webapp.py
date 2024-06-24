@@ -6,12 +6,11 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 # Load the trained model
-model_path = 'model_file.pkl'
+model_path = 'odel_file.pkl'
 model = joblib.load(model_path)
 
-
 # Load the scaler
-scaler_path = 'scaler.pkl'
+scaler_path = 'caler.pkl'
 scaler = joblib.load(scaler_path)
 
 # Define the expected feature names used during training
@@ -29,10 +28,16 @@ def main():
     """
     st.markdown(html_temp, unsafe_allow_html=True)
 
+    # Create two columns for input fields
+    col1, col2 = st.columns(2)
+
     # Create input fields for each feature with labels
     inputs = {}
-    for feature in expected_features:
-        inputs[feature] = st.number_input(f"Enter {feature.replace('_', ' ').capitalize()} : ", value=0.0)
+    for i, feature in enumerate(expected_features):
+        if i < len(expected_features) // 2:
+            inputs[feature] = col1.number_input(f"Enter {feature.replace('_', ').capitalize()} : ", value=0.0)
+        else:
+            inputs[feature] = col2.number_input(f"Enter {feature.replace('_', ').capitalize()} : ", value=0.0)
 
     # Create a button to predict the rating
     if st.button("Predict Rating"):
