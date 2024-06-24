@@ -25,8 +25,8 @@ def main():
     model_response = requests.get(model_url)
     scaler_response = requests.get(scaler_url)
     
-    model = joblib.load(io.BytesIO(model_response.content))
-    scaler = joblib.load(io.BytesIO(scaler_response.content))
+    model = joblib.load(model_response.content)
+    scaler = joblib.load(scaler_response.content)
 
     # Create input fields for user input
     inputs = {}
