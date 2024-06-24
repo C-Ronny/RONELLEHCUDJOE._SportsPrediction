@@ -1,66 +1,52 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
+import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 # Load the trained model
-model = joblib.load('model_file.pkl')
+model_path = 'model_file.pkl'
+model = joblib.load(model_path)
+
+
+# Load the scaler
+scaler_path = 'scaler.pkl'
+scaler = joblib.load(scaler_path)
 
 # Define the expected feature names used during training
-expected_features = ['movement_reactions', 'mentality_composure', 'passing', 'dribbling', 'physic',
-                     'attacking_short_passing', 'mentality_vision', 'skill_long_passing', 'shooting',
+expected_features = ['movement_reactions', 'entality_composure', 'passing', 
+                     'dribbling', 'physic', 'attacking_short_passing', 
+                     'entality_vision', 'kill_long_passing', 'hooting', 
                      'power_shot_power', 'age']
 
 def main():
-    st.title("⚽ FIFA Player Rating Predictor 🏆")
-    
+    st.title("Player Rating Predictor")
     html_temp = """
-    <div style="background-color:#025246;padding:10px;border-radius:10px;">
-    <h2 style="color:white;text-align:center;">Player Rating Predictor App</h2>
+    <div style="background:#025246 ;padding:10px">
+    <h2 style="color:white;text-align:center;">Get a players rating </h2>
     </div>
     """
     st.markdown(html_temp, unsafe_allow_html=True)
-    
-    st.markdown("### Enter player attributes to predict the overall rating 🌟")
 
-    # Input fields for user to input player features
-    movement_reactions = st.number_input("Movement Reactions ⚡", min_value=0.0)
-    mentality_composure = st.number_input("Mentality Composure 🧠", min_value=0.0)
-    passing = st.number_input("Passing 🎯", min_value=0.0)
-    dribbling = st.number_input("Dribbling 🕺", min_value=0.0)
-    physic = st.number_input("Physic 💪", min_value=0.0)
-    attacking_short_passing = st.number_input("Attacking Short Passing 🔄", min_value=0.0)
-    mentality_vision = st.number_input("Mentality Vision 👁️", min_value=0.0)
-    skill_long_passing = st.number_input("Skill Long Passing 🦵", min_value=0.0)
-    shooting = st.number_input("Shooting 🎯", min_value=0.0)
-    power_shot_power = st.number_input("Power Shot Power 💥", min_value=0.0)
-    age = st.number_input("Age 📅", min_value=0.0)
+    # Create input fields for each feature with labels
+    inputs = {}
+    for feature in expected_features:
+        inputs[feature] = st.number_input(f"Enter {feature.replace('_', ' ').capitalize()} : ", value=0.0)
 
-    # When the user clicks the predict button
-    if st.button("Predict 🧙‍♂️"):
-        # Create a DataFrame with user inputs
-        features = {
-            'movement_reactions': movement_reactions,
-            'mentality_composure': mentality_composure,
-            'passing': passing,
-            'dribbling': dribbling,
-            'physic': physic,
-            'attacking_short_passing': attacking_short_passing,
-            'mentality_vision': mentality_vision,
-            'skill_long_passing': skill_long_passing,
-            'shooting': shooting,
-            'power_shot_power': power_shot_power,
-            'age': age
-        }
-        
-        # Ensure the columns are in the correct order
-        df = pd.DataFrame([features], columns=expected_features)
+    # Create a button to predict the rating
+    if st.button("Predict Rating"):
+        # Create a pandas dataframe from the input values
+        input_data = pd.DataFrame([inputs], columns=expected_features)
 
-        # Perform prediction using the loaded model
-        prediction = model.predict(df)
-        output = prediction[0]
+        # Scale the input data using the loaded scaler
+        scaled_data = scaler.transform(input_data)
 
-        # Display the predicted player rating
-        st.success(f'Predicted Player Rating (Overall): {output:.2f} ⭐')
+        # Make a prediction using the loaded model
+        prediction = model.predict(scaled_data)[0]
 
-if __name__ == '__main__':
+        # Display the predicted rating
+        st.write("Predicted Rating:", round(prediction, 2))
+
+if __name__ == "__main__":
     main()
