@@ -21,10 +21,10 @@ expected_features = ['movement_reactions', 'entality_composure', 'passing',
                      'power_shot_power', 'age']
 
 def main():
-    st.title("FIFA Player Rating Predictor")
+    st.title("FIFA Rating Predictor")
     html_temp = """
     <div style="background:#025246 ;padding:10px">
-    <h2 style="color:white;text-align:center;">Player Rating Predictor App </h2>
+    <h2 style="color:white;text-align:center;">Predict a Players Rating </h2>
     </div>
     """
     st.markdown(html_temp, unsafe_allow_html=True)
