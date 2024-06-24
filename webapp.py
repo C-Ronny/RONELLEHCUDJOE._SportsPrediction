@@ -62,5 +62,5 @@ def main():
         # Display the predicted player rating
         st.success(f'Predicted Player Rating (Overall): {output:.2f} ⭐')
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     main()
