@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
-import joblib
 import os
+import requests
+import joblib
+import io
 
 # Load the trained model and scaler from GitHub repository
-model_path = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
-scaler_path = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
+model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
+scaler_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
 
-model = joblib.load(model_path)
-scaler = joblib.load(scaler_path)
+# Download the model and scaler from the URL
+model_response = requests.get(model_url)
+scaler_response = requests.get(scaler_url)
 
 # Define the expected feature names used during training
 expected_features = ['movement_reactions', 'mentality_composure', 'passing', 
