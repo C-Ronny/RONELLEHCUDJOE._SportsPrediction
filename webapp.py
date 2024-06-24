@@ -3,7 +3,6 @@ import pandas as pd
 import joblib
 import io
 import requests
-import pickle
 
 # Define the expected feature names used during training
 expected_features = ['movement_reactions', 'entality_composure', 'passing', 
@@ -23,9 +22,6 @@ def main():
     # Load the trained model and scaler from GitHub repository
     model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
     scaler_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
-
-    model_response = requests.get(model_url)
-    model = pickle.load(io.BytesIO(model_response.content))
 
     # Download the model and scaler from the URL
     model_response = requests.get(model_url)
