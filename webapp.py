@@ -19,15 +19,12 @@ def main():
     """
     st.markdown(html_temp, unsafe_allow_html=True)
 
-    # Load the trained model and scaler from GitHub repository
     model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
     scaler_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
-
-    # Download the model and scaler from the URL
+    
     model_response = requests.get(model_url)
     scaler_response = requests.get(scaler_url)
-
-    # Load the model and scaler from the response
+    
     model = joblib.load(io.BytesIO(model_response.content))
     scaler = joblib.load(io.BytesIO(scaler_response.content))
 
