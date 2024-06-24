@@ -3,27 +3,33 @@ import pandas as pd
 import joblib
 import io
 import requests
-import os
-
-# Load the trained model and scaler from GitHub repository
-model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
-scaler_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
-
-# Download the model and scaler from the URL
-model_response = requests.get(model_url)
-scaler_response = requests.get(scaler_url)
-
-# Load the model and scaler from the response
-model = joblib.load(io.BytesIO(model_response.content))
-scaler = joblib.load(io.BytesIO(scaler_response.content))
 
 # Define the expected feature names used during training
-expected_features = ['movement_reactions', 'entality_composure', 'passing', 'dribbling', 'physic', 'attacking_short_passing', 'entality_vision', 'kill_long_passing', 'hooting', 'power_shot_power', 'age']
+expected_features = ['movement_reactions', 'entality_composure', 'passing', 
+                     'dribbling', 'physic', 'attacking_short_passing', 
+                     'entality_vision', 'kill_long_passing', 'hooting', 
+                     'power_shot_power', 'age']
 
 def main():
     st.title("FIFA Player Rating Predictor")
-    html_temp = """ <div style="background:#025246 ;padding:10px"> <h2 style="color:white;text-align:center;">Player Rating Predictor App </h2> </div> """
+    html_temp = """
+    <div style="background:#025246 ;padding:10px">
+    <h2 style="color:white;text-align:center;">Player Rating Predictor App </h2>
+    </div>
+    """
     st.markdown(html_temp, unsafe_allow_html=True)
+
+    # Load the trained model and scaler from GitHub repository
+    model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
+    scaler_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
+
+    # Download the model and scaler from the URL
+    model_response = requests.get(model_url)
+    scaler_response = requests.get(scaler_url)
+
+    # Load the model and scaler from the response
+    model = joblib.load(io.BytesIO(model_response.content))
+    scaler = joblib.load(io.BytesIO(scaler_response.content))
 
     # Create input fields for user input
     inputs = {}
