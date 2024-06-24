@@ -10,6 +10,11 @@ expected_features = ['movement_reactions', 'mentality_composure', 'passing',
                      'mentality_vision', 'skill_long_passing', 'shooting', 
                      'power_shot_power', 'age']
 
+def load_file_from_github(url):
+    response = requests.get(url)
+    response.raise_for_status()  # Check for HTTP request errors
+    return io.BytesIO(response.content)
+
 def main():
     st.title("FIFA Player Rating Predictor")
     html_temp = """
@@ -19,16 +24,14 @@ def main():
     """
     st.markdown(html_temp, unsafe_allow_html=True)
 
-    # URLs to download the model and scaler
-    model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model_file.pkl'
+    # URLs to download the model and scaler from GitHub
+    model_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/model.pkl'
     scaler_url = 'https://raw.githubusercontent.com/C-Ronny/RONELLEHCUDJOE._SportsPrediction/main/scaler.pkl'
-    
-    # Download the model and scaler files
+
     try:
-        model_response = requests.get(model_url)
-        scaler_response = requests.get(scaler_url)
-        model = joblib.load(io.BytesIO(model_response.content))
-        scaler = joblib.load(io.BytesIO(scaler_response.content))
+        # Load the model and scaler from GitHub
+        model = joblib.load(load_file_from_github(model_url))
+        scaler = joblib.load(load_file_from_github(scaler_url))
     except Exception as e:
         st.error(f"Error loading model or scaler: {e}")
         return
