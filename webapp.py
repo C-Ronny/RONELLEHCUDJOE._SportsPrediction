@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 # Load the trained model
-model_path = 'odel_file.pkl'
+model_path = 'model_file.pkl'
 model = joblib.load(model_path)
 
 # Load the scaler
