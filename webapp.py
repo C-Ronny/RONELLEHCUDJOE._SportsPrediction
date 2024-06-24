@@ -10,7 +10,7 @@ model_path = 'model_file.pkl'
 model = joblib.load(model_path)
 
 # Load the scaler
-scaler_path = 'caler.pkl'
+scaler_path = 'scaler.pkl'
 scaler = joblib.load(scaler_path)
 
 # Define the expected feature names used during training
