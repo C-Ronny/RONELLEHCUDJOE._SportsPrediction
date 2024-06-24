@@ -6,12 +6,13 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 # Load the trained model
-model_path = os.path.join(os.path.dirname(__file__), 'model_file.pkl')
-model = joblib.load('/Users/ronny/Downloads/FIFA_PROJECT/model_file.pkl')
+model_path = 'model_file.pkl'
+model = joblib.load(model_path)
+
 
 # Load the scaler
-scaler_path = os.path.join(os.path.dirname(__file__), 'scaler.pkl')
-scaler = joblib.load('/Users/ronny/Downloads/FIFA_PROJECT/scaler.pkl')
+scaler_path = 'scaler.pkl'
+scaler = joblib.load('scaler_path')
 
 # Define the expected feature names used during training
 expected_features = ['movement_reactions', 'entality_composure', 'passing', 
