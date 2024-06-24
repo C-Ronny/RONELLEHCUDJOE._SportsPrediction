@@ -11,8 +11,8 @@ model = joblib.load(model_path)
 
 
 # Load the scaler
-scaler_path = 'scaler.pkl'
-scaler = joblib.load('scaler_path')
+scaler_path = 'caler.pkl'
+scaler = joblib.load(scaler_path)
 
 # Define the expected feature names used during training
 expected_features = ['movement_reactions', 'entality_composure', 'passing', 
